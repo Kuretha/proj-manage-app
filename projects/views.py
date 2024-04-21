@@ -3,15 +3,16 @@ from .models import Project, Task
 from .forms import TaskForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 def home(request):
   return render(request, 'index.html')
 
+@login_required()
 def projectList(request):
   projects = Project.objects.all()
-
   context = {'projects':projects}
   return render(request, 'projects/projects.html',context)
 
